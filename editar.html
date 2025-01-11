@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Editar Usuário</h1>
+    <form id="editarForm" method="POST" onsubmit="return false;">
+        <input type="hidden" id="id" name="id">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <br><br>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+        <button type="submit">Salvar Alterações</button>
+    </form>    
+    <a href="index.html">Voltar</a>
+    <script>
+
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get('id');
+
+        if (userId) {
+            fetch(`/api/listagem.php?id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        window.location.href = 'index.html';
+                    } else {
+                        document.querySelector('#id').value = data.id;
+                        document.querySelector('#nome').value = data.nome;
+                        document.querySelector('#email').value = data.email;
+                    }
+                })
+                .catch(err => {
+                    console.error('Erro ao carregar os dados:', err);
+                    alert('Erro ao carregar os dados do usuário.');
+                });
+        } else {
+            alert('ID de usuário não fornecido.');
+            window.location.href = 'index.html';
+        }
+
+    </script>
+<script src="js/editar.js"></script>
+</body>
+</html>
