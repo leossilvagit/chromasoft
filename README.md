@@ -2,7 +2,7 @@ Configuração e Execução do Projeto
 
 1. Pré-requisitos
 
-Docker
+Docker ou mysql ja instalado no servidor
 PHP 8.3.15 ou superior
 
 2. Configuração do Banco de Dados MySQL com Docker
@@ -17,6 +17,8 @@ docker run --name chromasoft \
   -e MYSQL_PASSWORD=gate_pos \
   -p 3306:3306 \
   -d mysql:latest
+
+Caso não use o docker, crie um novo banco de dados com nome chromasoft
 
 3. Instalar e Configurar o PHP
 Passo 1: Instalar o PHP
